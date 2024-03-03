@@ -55,7 +55,7 @@ function draw()
   if (draw_targets && attempt < 2)
   {     
     // The user is interacting with the 6x3 target grid
-    background(color(144, 238, 144)); // sets background to light green
+    background(color(255, 0, 0)); // sets background to light green
     
     // Print trial count at the top left-corner of the canvas
     textFont("Arial", 16);
@@ -243,196 +243,191 @@ function createTargets(target_size, horizontal_gap, vertical_gap) {
   let baClusterX = 60; // X-coordinate for the Ba cluster
   let baClusterY = 40; // Y-coordinate for the Ba cluster
   let baClusterSize = 0; // Counter for Ba cluster size
-  for (let cityData of sortedCities) {
-    if (removeAccents(cityData.name.toLowerCase()).startsWith("ba")) {
-      cityData.x = baClusterX;
-      cityData.y = baClusterY;
-      baClusterSize++;
-      if (baClusterSize >= 5) { // If Ba cluster size reaches 5, move to next row
-        baClusterY += target_size + v_margin-10;
-        baClusterX = 60; // Reset X-coordinate for the next row
-        baClusterSize = 0;
-      } else {
-        baClusterX += target_size + h_margin-80;
-      }
+  let baClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("ba"));
+  baClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of baClusterCities) {
+    cityData.x = baClusterX;
+    cityData.y = baClusterY;
+    baClusterSize++;
+    if (baClusterSize >= 5) { // If Ba cluster size reaches 5, move to next row
+      baClusterY += target_size + v_margin - 10;
+      baClusterX = 60; // Reset X-coordinate for the next row
+      baClusterSize = 0;
+    } else {
+      baClusterX += target_size + h_margin - 80;
     }
   }
 
   // Form a cluster for cities starting with "Be" in the top middle
-  let beClusterX = 350*2; // X-coordinate for the Be cluster
+  let beClusterX = 350 * 2; // X-coordinate for the Be cluster
   let beClusterY = 40; // Y-coordinate for the Be cluster
   let beClusterSize = 0; // Counter for Be cluster size
-  for (let cityData of sortedCities) {
-    if (removeAccents(cityData.name.toLowerCase()).startsWith("be")) {
-      cityData.x = beClusterX;
-      cityData.y = beClusterY;
-      beClusterSize++;
-      if (beClusterSize >= 3) { // If Be cluster size reaches 3, move to next row
-        beClusterY += target_size + v_margin - 10;
-        beClusterX = 350*2; // Reset X-coordinate for the next row
-        beClusterSize = 0;
-      } else {
-        beClusterX += target_size + h_margin -80;
-      }
+  let beClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("be"));
+  beClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of beClusterCities) {
+    cityData.x = beClusterX;
+    cityData.y = beClusterY;
+    beClusterSize++;
+    if (beClusterSize >= 3) { // If Be cluster size reaches 3, move to next row
+      beClusterY += target_size + v_margin - 10;
+      beClusterX = 350 * 2; // Reset X-coordinate for the next row
+      beClusterSize = 0;
+    } else {
+      beClusterX += target_size + h_margin - 80;
     }
   }
-  
-    // Form a cluster for cities starting with "Be" in the top middle
+
+  // Form a cluster for cities starting with "Bh" in the top middle
   let bhClusterX = 1110; // X-coordinate for the Bh cluster
   let bhClusterY = 40; // Y-coordinate for the Bh cluster
   let bhClusterSize = 0; // Counter for Bh cluster size
-  for (let cityData of sortedCities) {
-    if (removeAccents(cityData.name.toLowerCase()).startsWith("bh")) {
-      cityData.x = bhClusterX;
-      cityData.y = bhClusterY;
-      bhClusterSize++;
-      if (bhClusterSize >= 1) { // If Bh cluster size reaches 3, move to next row
-        bhClusterY += target_size + v_margin - 10;
-        bhClusterX = 1110; // Reset X-coordinate for the next row
-        bhClusterSize = 0;
-      } else {
-        bhClusterX += target_size + h_margin -80;
-      }
+  let bhClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("bh"));
+  bhClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of bhClusterCities) {
+    cityData.x = bhClusterX;
+    cityData.y = bhClusterY;
+    bhClusterSize++;
+    if (bhClusterSize >= 1) { // If Bh cluster size reaches 1, move to next row
+      bhClusterY += target_size + v_margin - 10;
+      bhClusterX = 1110; // Reset X-coordinate for the next row
+      bhClusterSize = 0;
+    } else {
+      bhClusterX += target_size + h_margin - 80;
     }
   }
-  
-  
+
   // Form a cluster for cities starting with "Bi" in the top-left corner
   let biClusterX = 1300; // X-coordinate for the Bi cluster
   let biClusterY = 40; // Y-coordinate for the Bi cluster
   let biClusterSize = 0; // Counter for Bi cluster size
-  for (let cityData of sortedCities) {
-    if (removeAccents(cityData.name.toLowerCase()).startsWith("bi")) {
-      cityData.x = biClusterX;
-      cityData.y = biClusterY;
-      biClusterSize++;
-      if (biClusterSize >= 5) { // If Ba cluster size reaches 5, move to next row
-        biClusterY += target_size + v_margin-10;
-        biClusterX = 1300; // Reset X-coordinate for the next row
-        biClusterSize = 0;
-      } else {
-        biClusterX += target_size + h_margin-80;
-      }
+  let biClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("bi"));
+  biClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of biClusterCities) {
+    cityData.x = biClusterX;
+    cityData.y = biClusterY;
+    biClusterSize++;
+    if (biClusterSize >= 5) { // If Ba cluster size reaches 5, move to next row
+      biClusterY += target_size + v_margin - 10;
+      biClusterX = 1300; // Reset X-coordinate for the next row
+      biClusterSize = 0;
+    } else {
+      biClusterX += target_size + h_margin - 80;
     }
   }
-  
-   // Form a cluster for cities starting with "Bl" in the top right
+
+  // Form a cluster for cities starting with "Bl" in the top right
   let blClusterX = 1300; // X-coordinate for the Bl cluster
   let blClusterY = 400; // Y-coordinate for the Bl cluster
   let blClusterSize = 0; // Counter for Bl cluster size
-  for (let cityData of sortedCities) {
-    if (removeAccents(cityData.name.toLowerCase()).startsWith("bl")) {
-      cityData.x = blClusterX;
-      cityData.y = blClusterY;
-      blClusterSize++;
-      if (blClusterSize >= 2) { // If Bl cluster size reaches 2, move to next row
-        blClusterY += target_size + v_margin + 10;
-        blClusterX = 1110; // Reset X-coordinate for the next row
-        blClusterSize = 0;
-      } else {
-        blClusterX += target_size + h_margin -80;
-      }
+  let blClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("bl"));
+  blClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of blClusterCities) {
+    cityData.x = blClusterX;
+    cityData.y = blClusterY;
+    blClusterSize++;
+    if (blClusterSize >= 2) { // If Bl cluster size reaches 2, move to next row
+      blClusterY += target_size + v_margin + 10;
+      blClusterX = 1110; // Reset X-coordinate for the next row
+      blClusterSize = 0;
+    } else {
+      blClusterX += target_size + h_margin - 80;
     }
   }
-  
+
   // Form a cluster for cities starting with "Bn" in the middle right
-  let bnClusterX = 1400+40; // X-coordinate for the Bn cluster
+  let bnClusterX = 1400 + 40; // X-coordinate for the Bn cluster
   let bnClusterY = 400; // Y-coordinate for the Bn cluster
   let bnClusterSize = 0; // Counter for Bn cluster size
-  for (let cityData of sortedCities) {
-    if (removeAccents(cityData.name.toLowerCase()).startsWith("bn")) {
-      cityData.x = bnClusterX;
-      cityData.y = bnClusterY;
-      bnClusterSize++;
-      if (bnClusterSize >= 1) { // If Bn cluster size reaches 1, move to next row
-        bnClusterY += target_size + v_margin + 10;
-        bnClusterX = 1300; // Reset X-coordinate for the next row
-        bnClusterSize = 0;
-      } else {
-        bnClusterX += target_size + h_margin -80;
-      }
+  let bnClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("bn"));
+  bnClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of bnClusterCities) {
+    cityData.x = bnClusterX;
+    cityData.y = bnClusterY;
+    bnClusterSize++;
+    if (bnClusterSize >= 1) { // If Bn cluster size reaches 1, move to next row
+      bnClusterY += target_size + v_margin + 10;
+      bnClusterX = 1300; // Reset X-coordinate for the next row
+      bnClusterSize = 0;
+    } else {
+      bnClusterX += target_size + h_margin - 80;
     }
   }
-  
-// Form a cluster for cities starting with "Bo" in the middle right
-let boClusterX = 60; // X-coordinate for the Bo cluster
-let boClusterY = 790; // Y-coordinate for the Bo cluster
-let boClusterSize = 0; // Counter for Bo cluster size
-for (let cityData of sortedCities) {
-  if (removeAccents(cityData.name.toLowerCase()).startsWith("bo")) {
+
+  // Form a cluster for cities starting with "Bo" in the middle right
+  let boClusterX = 60; // X-coordinate for the Bo cluster
+  let boClusterY = 790; // Y-coordinate for the Bo cluster
+  let boClusterSize = 0; // Counter for Bo cluster size
+  let boClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("bo"));
+  boClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of boClusterCities) {
     cityData.x = boClusterX;
     cityData.y = boClusterY;
     boClusterSize++;
     if (boClusterSize >= 2) { // If Bo cluster size reaches 4, move to next row
-      boClusterY += target_size + v_margin-10;
+      boClusterY += target_size + v_margin - 10;
       boClusterX = 60; // Reset X-coordinate for the next row
       boClusterSize = 0;
     } else {
       boClusterX += target_size + h_margin - 80;
     }
   }
-}
-  
-  
-  // Form a cluster for cities starting with "Br"in the middle right
-let brClusterX = 350*2; // X-coordinate for the Br cluster
-let brClusterY = 590;// Y-coordinate for the Br cluster
-let brClusterSize = 0; // Counter for Br cluster size
-for (let cityData of sortedCities) {
-  if (removeAccents(cityData.name.toLowerCase()).startsWith("br")) {
+
+  // Form a cluster for cities starting with "Br" in the middle right
+  let brClusterX = 350 * 2; // X-coordinate for the Br cluster
+  let brClusterY = 590; // Y-coordinate for the Br cluster
+  let brClusterSize = 0; // Counter for Br cluster size
+  let brClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("br"));
+  brClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of brClusterCities) {
     cityData.x = brClusterX;
     cityData.y = brClusterY;
     brClusterSize++;
     if (brClusterSize >= 4) { // If Bo cluster size reaches 4, move to next row
-      brClusterY += target_size + v_margin-10;
-      brClusterX = 350*2; // Reset X-coordinate for the next row
+      brClusterY += target_size + v_margin - 10;
+      brClusterX = 350 * 2; // Reset X-coordinate for the next row
       brClusterSize = 0;
     } else {
       brClusterX += target_size + h_margin - 80;
     }
   }
-}
-  
-  
-    // Form a cluster for cities starting with "Br"in the middle right
-let buClusterX = 1500; // X-coordinate for the Br cluster
-let buClusterY = 590;// Y-coordinate for the Br cluster
-let buClusterSize = 0; // Counter for Br cluster size
-for (let cityData of sortedCities) {
-  if (removeAccents(cityData.name.toLowerCase()).startsWith("bu")) {
+
+  // Form a cluster for cities starting with "Bu" in the middle right
+  let buClusterX = 1500; // X-coordinate for the Bu cluster
+  let buClusterY = 590; // Y-coordinate for the Bu cluster
+  let buClusterSize = 0; // Counter for Bu cluster size
+  let buClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("bu"));
+  buClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of buClusterCities) {
     cityData.x = buClusterX;
     cityData.y = buClusterY;
     buClusterSize++;
     if (buClusterSize >= 4) { // If Bo cluster size reaches 4, move to next row
-      buClusterY += target_size + v_margin-10;
+      buClusterY += target_size + v_margin - 10;
       buClusterX = 1500; // Reset X-coordinate for the next row
       buClusterSize = 0;
     } else {
       buClusterX += target_size + h_margin - 80;
     }
   }
-}
-  
-      // Form a cluster for cities starting with "Br"in the middle right
-let byClusterX = 1860; // X-coordinate for the Br cluster
-let byClusterY = 940;// Y-coordinate for the Br cluster
-let byClusterSize = 0; // Counter for Br cluster size
-for (let cityData of sortedCities) {
-  if (removeAccents(cityData.name.toLowerCase()).startsWith("by")) {
+
+  // Form a cluster for cities starting with "By" in the middle right
+  let byClusterX = 1860; // X-coordinate for the By cluster
+  let byClusterY = 940; // Y-coordinate for the By cluster
+  let byClusterSize = 0; // Counter for By cluster size
+  let byClusterCities = sortedCities.filter(cityData => removeAccents(cityData.name.toLowerCase()).startsWith("by"));
+  byClusterCities.sort((a, b) => a.name.length - b.name.length);
+  for (let cityData of byClusterCities) {
     cityData.x = byClusterX;
     cityData.y = byClusterY;
     byClusterSize++;
     if (byClusterSize >= 4) { // If Bo cluster size reaches 4, move to next row
-      byClusterY += target_size + v_margin-10;
-      byClusterX = 1500; // Reset X-coordinate for the next row
+      byClusterY += target_size + v_margin - 10;
+      byClusterX = 1860; // Reset X-coordinate for the next row
       byClusterSize = 0;
     } else {
       byClusterX += target_size + h_margin - 80;
     }
   }
-}
-  
-
 
   // Now create targets based on sorted city data
   for (let cityData of sortedCities) {
