@@ -188,13 +188,9 @@ function removeAccents(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-function createTargets(target_size, target_gap) {
-    // Define the margins between targets by dividing the white space for the number of targets minus one
-    // h_margin = horizontal_gap / (GRID_COLUMNS - 1);
-    // v_margin = vertical_gap / (GRID_ROWS - 1);
-
-    let sortedCities = []; // Create an array to hold sorted city data
-
+function createTargets(target_size, target_gap, screen_width, screen_height) {
+    // Create an array to hold sorted city data
+    let sortedCities = [];
     // Populate the sortedCities array with city data from legendas.csv
     for (let i = 0; i < legendas.getRowCount(); i++) {
         let cityData = {
@@ -211,20 +207,20 @@ function createTargets(target_size, target_gap) {
         return removeAccents(a.name).localeCompare(removeAccents(b.name), "en", { sensitivity: "base" });
     });
 
-    // Set targets in a 5 x 5 grid
-    let targetIndex = 0;
-    for (var r = 0; r < GRID_ROWS; r++) {
-        let target_y = 40 + (target_gap + target_size) * r + target_size / 2;
-        for (var c = 0; c < GRID_COLUMNS; c++) {
-            let target_x = 40 + (target_gap + target_size) * c + target_size / 2; // give it some margin from the left border
+    // Set targets in a 8 x 10 grid
+    // let targetIndex = 0;
+    // for (var r = 0; r < GRID_ROWS; r++) {
+    //     let target_y = 40 + (target_gap + target_size) * r + target_size / 2;
+    //     for (var c = 0; c < GRID_COLUMNS; c++) {
+    //         let target_x = 40 + (target_gap + target_size) * c + target_size / 2; // give it some margin from the left border
 
-            // Assign coordinates to the sorted city data
-            sortedCities[targetIndex].x = target_x;
-            sortedCities[targetIndex].y = target_y;
+    //         // Assign coordinates to the sorted city data
+    //         sortedCities[targetIndex].x = target_x;
+    //         sortedCities[targetIndex].y = target_y;
 
-            targetIndex++;
-        }
-    }
+    //         targetIndex++;
+    //     }
+    // }
 
     function formCluster(clusterX, clusterY, clusterPrefix, clusterSizeLimit) {
         let initialX = clusterX;
@@ -232,7 +228,7 @@ function createTargets(target_size, target_gap) {
         let clusterCities = sortedCities.filter((cityData) =>
             removeAccents(cityData.name.toLowerCase()).startsWith(clusterPrefix)
         );
-        clusterCities.sort((a, b) => a.name.length - b.name.length);
+        // clusterCities.sort((a, b) => a.name.length - b.name.length);
         for (let cityData of clusterCities) {
             cityData.x = clusterX;
             cityData.y = clusterY;
@@ -247,16 +243,26 @@ function createTargets(target_size, target_gap) {
         }
     }
 
-    formCluster(60, 40, "ba", 5);
-    formCluster(350 * 2, 40, "be", 3);
-    formCluster(1110, 40, "bh", 1);
-    formCluster(1300, 40, "bi", 5);
-    formCluster(1300, 400, "bl", 2);
-    formCluster(1400 + 40, 400, "bn", 1);
-    formCluster(60, 790, "bo", 2);
-    formCluster(350 * 2, 590, "br", 4);
-    formCluster(1500, 590, "bu", 4);
-    formCluster(1860, 940, "by", 4);
+    formCluster(target_size, target_size / 2, "ba", 5);
+    formCluster(
+        screen_width / 2 - 1.5 * target_gap - 2.5 * target_size,
+        screen_height - 4.5 * target_size - 3 * target_gap,
+        "be",
+        3
+    );
+    formCluster(0.75 * screen_width - 2.25 * target_size - 1.25 * target_gap, 0.5 * target_size, "bh", 1);
+    formCluster(screen_width - 5 * target_size - 4 * target_gap, 0.5 * target_size, "bi", 5);
+    formCluster(screen_width - 5 * target_size - 4 * target_gap, 4.5 * target_size + 4 * target_gap, "bl", 2);
+    formCluster(screen_width - 3 * target_size - 2 * target_gap, 4.5 * target_size + 4 * target_gap, "bn", 1);
+    formCluster(target_size, screen_height - 2.5 * target_size - target_gap, "bo", 2);
+    formCluster(0.5 * screen_width - 2.5 * target_size - 1.5 * target_gap, 0.5 * target_size, "br", 4);
+    formCluster(
+        screen_width - 5 * target_size - 4 * target_gap,
+        screen_height - 4.5 * target_size - 3 * target_gap,
+        "bu",
+        4
+    );
+    formCluster(screen_width - target_size, screen_height - 1.5 * target_size, "by", 1);
 
     // Now create targets based on sorted city data
     for (let cityData of sortedCities) {
@@ -279,13 +285,14 @@ function windowResized() {
         // Below we find out out white space we can have between 2 cm targets
         let screen_width = display.width * 2.54; // screen width
         let screen_height = display.height * 2.54; // screen height
-        let target_size = 2; // sets the target size (will be converted to cm when passed to createTargets)
-        let horizontal_gap = screen_width - target_size * GRID_COLUMNS; // empty space in cm across the x-axis (based on 10 targets per row)
+        let target_size = 2.5; // sets the target size (will be converted to cm when passed to createTargets)
+        let target_gap = 0.75; // sets the gap between targets (will be converted to cm when passed to createTargets)
+        let horizontal_gap = screen_width - 14 * target_size; // empty space in cm across the x-axis (based on 10 targets per row)
         let vertical_gap = screen_height - target_size * GRID_ROWS; // empty space in cm across the y-axis (based on 8 targets per column)
 
         // Creates and positions the UI targets according to the white space defined above (in cm!)
         // 80 represent some margins around the display (e.g., for text)
-        createTargets(target_size * PPCM, 0.5 * PPCM);
+        createTargets(target_size * PPCM, target_gap * PPCM, screen_width * PPCM, screen_height * PPCM);
 
         // Starts drawing targets immediately after we go fullscreen
         draw_targets = true;
