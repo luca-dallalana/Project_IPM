@@ -22,7 +22,7 @@ class Target {
         circle(this.x, this.y, this.width);
 
         // Draw label
-        textFont("Arial", 12);
+        textFont("Arial", 11);
         textStyle(BOLD);
         fill(color(255, 255, 0));
         textAlign(CENTER);

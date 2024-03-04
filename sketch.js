@@ -246,23 +246,23 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
     formCluster(target_size, target_size / 2, "ba", 5);
     formCluster(
         screen_width / 2 - 1.5 * target_gap - 2.5 * target_size,
-        screen_height - 4.5 * target_size - 3 * target_gap,
+        screen_height - 4.5 * target_size - 3 * target_gap - 10,
         "be",
         3
     );
     formCluster(0.75 * screen_width - 2.25 * target_size - 1.25 * target_gap, 0.5 * target_size, "bh", 1);
     formCluster(screen_width - 5 * target_size - 4 * target_gap, 0.5 * target_size, "bi", 5);
-    formCluster(screen_width - 5 * target_size - 4 * target_gap, 4.5 * target_size + 4 * target_gap, "bl", 2);
-    formCluster(screen_width - 3 * target_size - 2 * target_gap, 4.5 * target_size + 4 * target_gap, "bn", 1);
-    formCluster(target_size, screen_height - 2.5 * target_size - target_gap, "bo", 2);
+    formCluster(screen_width - 5 * target_size - 4 * target_gap, 3.5 * target_size + 3 * target_gap, "bl", 2);
+    formCluster(screen_width - 3 * target_size - 2 * target_gap, 3.5 * target_size + 3 * target_gap, "bn", 1);
+    formCluster(target_size, screen_height - 2.5 * target_size - target_gap - 10, "bo", 2);
     formCluster(0.5 * screen_width - 2.5 * target_size - 1.5 * target_gap, 0.5 * target_size, "br", 4);
     formCluster(
         screen_width - 5 * target_size - 4 * target_gap,
-        screen_height - 4.5 * target_size - 3 * target_gap,
+        screen_height - 4.5 * target_size - 3 * target_gap - 10,
         "bu",
         4
     );
-    formCluster(screen_width - target_size, screen_height - 1.5 * target_size, "by", 1);
+    formCluster(screen_width - target_size, screen_height - 1.5 * target_size - 10, "by", 1);
 
     // Now create targets based on sorted city data
     for (let cityData of sortedCities) {
@@ -285,8 +285,8 @@ function windowResized() {
         // Below we find out out white space we can have between 2 cm targets
         let screen_width = display.width * 2.54; // screen width
         let screen_height = display.height * 2.54; // screen height
-        let target_size = 2.5; // sets the target size (will be converted to cm when passed to createTargets)
-        let target_gap = 0.75; // sets the gap between targets (will be converted to cm when passed to createTargets)
+        let target_size = 1.5; // sets the target size (will be converted to cm when passed to createTargets)
+        let target_gap = 0.2; // sets the gap between targets (will be converted to cm when passed to createTargets)
         let horizontal_gap = screen_width - 14 * target_size; // empty space in cm across the x-axis (based on 10 targets per row)
         let vertical_gap = screen_height - target_size * GRID_ROWS; // empty space in cm across the y-axis (based on 8 targets per column)
 
