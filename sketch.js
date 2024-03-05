@@ -67,10 +67,10 @@ function draw() {
         // Draw all cluster borders
         for (let clusterBorder of clusterBorders)
             clusterBorder.draw();
-        
+
         // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
         textFont("Arial", 24);
-        fill(color(255, 255, 255));
+        fill(color(100, 100, 100));
         textAlign(CENTER);
         text("Grouped by two initial letters AND alphabetically ordered", width / 2, height / 2);
 
