@@ -6,7 +6,7 @@
 // p5.js reference: https://p5js.org/reference/
 
 // Database (CHANGE THESE!)
-const GROUP_NUMBER = 0; // Add your group number here as an integer (e.g., 2, 3)
+const GROUP_NUMBER = 0;           // Add your group number here as an integer (e.g., 2, 3)
 const RECORD_TO_FIREBASE = false; // Set to 'true' to record user results to Firebase
 
 // Pixel density and setup variables (DO NOT CHANGE!)
@@ -16,36 +16,39 @@ let continue_button;
 let legendas; // The item list from the "legendas" CSV
 
 // Metrics (DO NOT CHANGE!)
-let testStartTime, testEndTime; // time between the start and end of one attempt (8 trials)
-let hits = 0; // number of successful selections
-let misses = 0; // number of missed selections (used to calculate accuracy)
-let database; // Firebase DB
+let testStartTime,
+    testEndTime; // time between the start and end of one attempt (8 trials)
+let hits = 0;    // number of successful selections
+let misses = 0;  // number of missed selections (used to calculate accuracy)
+let database;    // Firebase DB
 
 // Study control parameters (DO NOT CHANGE!)
 let draw_targets = false; // used to control what to show in draw()
-let trials; // contains the order of targets that activate in the test
-let current_trial = 0; // the current trial number (indexes into trials array above)
-let attempt = 0; // users complete each test twice to account for practice (attemps 0 and 1)
+let trials;               // contains the order of targets that activate in the test
+let current_trial = 0;    // the current trial number (indexes into trials array above)
+let attempt = 0;          // users complete each test twice to account for practice
+                          // (attemps 0 and 1)
 
 // Target list and layout variables
 let targets = [];
-const GRID_ROWS = 8; // We divide our 80 targets in a 8x10 grid
+const GRID_ROWS = 8;     // We divide our 80 targets in a 8x10 grid
 const GRID_COLUMNS = 10; // We divide our 80 targets in a 8x10 grid
 
 // Ensures important data is loaded before the program starts
 // Ensures important data is loaded before the program starts
 function preload() {
     // Load the CSV file
-    legendas = loadTable("legendas.csv", "csv", "header");
+    legendas = loadTable('legendas.csv', 'csv', 'header');
 }
 
 // Runs once at the start
 function setup() {
     createCanvas(700, 500); // window size in px before we go into fullScreen()
-    frameRate(60); // frame rate (DO NOT CHANGE!)
+    frameRate(60);          // frame rate (DO NOT CHANGE!)
 
-    randomizeTrials(); // randomize the trial order at the start of execution
-    drawUserIDScreen(); // draws the user start-up screen (student ID and display size)
+    randomizeTrials();  // randomize the trial order at the start of execution
+    drawUserIDScreen(); // draws the user start-up screen (student ID and display
+                        // size)
 }
 
 // Runs every frame and redraws the screen
@@ -55,13 +58,14 @@ function draw() {
         background(color(0, 0, 0)); // sets background to light green (garbage)
 
         // Print trial count at the top left-corner of the canvas
-        textFont("Arial", 16);
+        textFont('Arial', 16);
         fill(color(255, 255, 255));
         textAlign(LEFT);
-        text("Trial " + (current_trial + 1) + " of " + trials.length, 50, 20);
+        text('Trial ' + (current_trial + 1) + ' of ' + trials.length, 50, 20);
 
         // Draw all targets
-        for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw();
+        for (var i = 0; i < legendas.getRowCount(); i++)
+            targets[i].draw();
 
         // Draws the target label to be selected in the current trial. We include
         // a black rectangle behind the trial label for optimal contrast in case
@@ -69,7 +73,7 @@ function draw() {
         fill(color(0, 0, 0));
         rect(0, height - 40, width, 40);
 
-        textFont("Arial", 20);
+        textFont('Arial', 20);
         fill(color(255, 255, 255));
         textAlign(CENTER);
         text(legendas.getString(trials[current_trial], 1), width / 2, height - 20);
@@ -84,35 +88,35 @@ function printAndSavePerformance() {
     let time_per_target = nf(test_time / parseFloat(hits + misses), 0, 3);
     let penalty = constrain((parseFloat(95) - parseFloat(hits * 100) / parseFloat(hits + misses)) * 0.2, 0, 100);
     let target_w_penalty = nf(test_time / parseFloat(hits + misses) + penalty, 0, 3);
-    let timestamp = day() + "/" + month() + "/" + year() + "  " + hour() + ":" + minute() + ":" + second();
+    let timestamp = day() + '/' + month() + '/' + year() + '  ' + hour() + ':' + minute() + ':' + second();
 
-    textFont("Arial", 18);
+    textFont('Arial', 18);
     background(color(0, 0, 0)); // clears screen
     fill(color(255, 255, 255)); // set text fill color to white
     textAlign(LEFT);
     text(timestamp, 10, 20); // display time on screen (top-left corner)
 
     textAlign(CENTER);
-    text("Attempt " + (attempt + 1) + " out of 2 completed!", width / 2, 60);
-    text("Hits: " + hits, width / 2, 100);
-    text("Misses: " + misses, width / 2, 120);
-    text("Accuracy: " + accuracy + "%", width / 2, 140);
-    text("Total time taken: " + test_time + "s", width / 2, 160);
-    text("Average time per target: " + time_per_target + "s", width / 2, 180);
-    text("Average time for each target (+ penalty): " + target_w_penalty + "s", width / 2, 220);
+    text('Attempt ' + (attempt + 1) + ' out of 2 completed!', width / 2, 60);
+    text('Hits: ' + hits, width / 2, 100);
+    text('Misses: ' + misses, width / 2, 120);
+    text('Accuracy: ' + accuracy + '%', width / 2, 140);
+    text('Total time taken: ' + test_time + 's', width / 2, 160);
+    text('Average time per target: ' + time_per_target + 's', width / 2, 180);
+    text('Average time for each target (+ penalty): ' + target_w_penalty + 's', width / 2, 220);
 
     // Saves results (DO NOT CHANGE!)
     let attempt_data = {
-        project_from: GROUP_NUMBER,
-        assessed_by: student_ID,
-        test_completed_by: timestamp,
-        attempt: attempt,
-        hits: hits,
-        misses: misses,
-        accuracy: accuracy,
-        attempt_duration: test_time,
-        time_per_target: time_per_target,
-        target_w_penalty: target_w_penalty,
+        project_from : GROUP_NUMBER,
+        assessed_by : student_ID,
+        test_completed_by : timestamp,
+        attempt : attempt,
+        hits : hits,
+        misses : misses,
+        accuracy : accuracy,
+        attempt_duration : test_time,
+        time_per_target : time_per_target,
+        target_w_penalty : target_w_penalty,
     };
 
     // Sends data to DB (DO NOT CHANGE!)
@@ -124,7 +128,7 @@ function printAndSavePerformance() {
         }
 
         // Adds user performance results
-        let db_ref = database.ref("G" + GROUP_NUMBER);
+        let db_ref = database.ref('G' + GROUP_NUMBER);
         db_ref.push(attempt_data);
     }
 }
@@ -138,8 +142,10 @@ function mousePressed() {
             // Check if the user clicked over one of the targets
             if (targets[i].clicked(mouseX, mouseY)) {
                 // Checks if it was the correct target
-                if (targets[i].id === trials[current_trial] + 1) hits++;
-                else misses++;
+                if (targets[i].id === trials[current_trial] + 1)
+                    hits++;
+                else
+                    misses++;
 
                 current_trial++; // Move on to the next trial/target
                 break;
@@ -149,22 +155,22 @@ function mousePressed() {
         // Check if the user has completed all trials
         if (current_trial === NUM_OF_TRIALS) {
             testEndTime = millis();
-            draw_targets = false; // Stop showing targets and the user performance results
-            printAndSavePerformance(); // Print the user's results on-screen and send these to the DB
+            draw_targets = false;      // Stop showing targets and the user performance results
+            printAndSavePerformance(); // Print the user's results on-screen and send
+                                       // these to the DB
             attempt++;
 
             // If there's an attempt to go create a button to start this
             if (attempt < 2) {
-                continue_button = createButton("START 2ND ATTEMPT");
+                continue_button = createButton('START 2ND ATTEMPT');
                 continue_button.mouseReleased(continueTest);
-                continue_button.position(
-                    width / 2 - continue_button.size().width / 2,
-                    height / 2 - continue_button.size().height / 2
-                );
+                continue_button.position(width / 2 - continue_button.size().width / 2,
+                                         height / 2 - continue_button.size().height / 2);
             }
         }
         // Check if this was the first selection in an attempt
-        else if (current_trial === 1) testStartTime = millis();
+        else if (current_trial === 1)
+            testStartTime = millis();
     }
 }
 
@@ -185,7 +191,7 @@ function continueTest() {
 }
 
 function removeAccents(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
 function createTargets(target_size, target_gap, screen_width, screen_height) {
@@ -194,40 +200,23 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
     // Populate the sortedCities array with city data from legendas.csv
     for (let i = 0; i < legendas.getRowCount(); i++) {
         let cityData = {
-            id: legendas.getNum(i, 0), // Assuming IDs are in the first column
-            name: legendas.getString(i, 1), // Assuming city names are in the second column
-            x: 0, // Placeholder for x-coordinate
-            y: 0, // Placeholder for y-coordinate
+            id : legendas.getNum(i, 0),      // Assuming IDs are in the first column
+            name : legendas.getString(i, 1), // Assuming city names are in the second column
+            x : 0,                           // Placeholder for x-coordinate
+            y : 0,                           // Placeholder for y-coordinate
         };
         sortedCities.push(cityData);
     }
 
     // Sort the sortedCities array by city names alphabetically
-    sortedCities.sort((a, b) => {
-        return removeAccents(a.name).localeCompare(removeAccents(b.name), "en", { sensitivity: "base" });
-    });
-
-    // Set targets in a 8 x 10 grid
-    // let targetIndex = 0;
-    // for (var r = 0; r < GRID_ROWS; r++) {
-    //     let target_y = 40 + (target_gap + target_size) * r + target_size / 2;
-    //     for (var c = 0; c < GRID_COLUMNS; c++) {
-    //         let target_x = 40 + (target_gap + target_size) * c + target_size / 2; // give it some margin from the left border
-
-    //         // Assign coordinates to the sorted city data
-    //         sortedCities[targetIndex].x = target_x;
-    //         sortedCities[targetIndex].y = target_y;
-
-    //         targetIndex++;
-    //     }
-    // }
+    sortedCities.sort(
+        (a, b) => { return removeAccents(a.name).localeCompare(removeAccents(b.name), 'en', {sensitivity : 'base'}); });
 
     function formCluster(clusterX, clusterY, clusterPrefix, clusterSizeLimit) {
         let initialX = clusterX;
         let clusterSize = 0;
-        let clusterCities = sortedCities.filter((cityData) =>
-            removeAccents(cityData.name.toLowerCase()).startsWith(clusterPrefix)
-        );
+        let clusterCities =
+            sortedCities.filter((cityData) => removeAccents(cityData.name.toLowerCase()).startsWith(clusterPrefix));
         // clusterCities.sort((a, b) => a.name.length - b.name.length);
         for (let cityData of clusterCities) {
             cityData.x = clusterX;
@@ -243,26 +232,18 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
         }
     }
 
-    formCluster(target_size, target_size / 2, "ba", 5);
-    formCluster(
-        screen_width / 2 - 1.5 * target_gap - 2.5 * target_size,
-        screen_height - 4.5 * target_size - 3 * target_gap - 10,
-        "be",
-        3
-    );
-    formCluster(0.75 * screen_width - 2.25 * target_size - 1.25 * target_gap, 0.5 * target_size, "bh", 1);
-    formCluster(screen_width - 5 * target_size - 4 * target_gap, 0.5 * target_size, "bi", 5);
-    formCluster(screen_width - 5 * target_size - 4 * target_gap, 3.5 * target_size + 3 * target_gap, "bl", 2);
-    formCluster(screen_width - 3 * target_size - 2 * target_gap, 3.5 * target_size + 3 * target_gap, "bn", 1);
-    formCluster(target_size, screen_height - 2.5 * target_size - target_gap - 10, "bo", 2);
-    formCluster(0.5 * screen_width - 2.5 * target_size - 1.5 * target_gap, 0.5 * target_size, "br", 4);
-    formCluster(
-        screen_width - 5 * target_size - 4 * target_gap,
-        screen_height - 4.5 * target_size - 3 * target_gap - 10,
-        "bu",
-        4
-    );
-    formCluster(screen_width - target_size, screen_height - 1.5 * target_size - 10, "by", 1);
+    formCluster(target_size, target_size / 2, 'ba', 5);
+    formCluster(screen_width / 2 - 1.5 * target_gap - 2.5 * target_size,
+                screen_height - 4.5 * target_size - 3 * target_gap - 10, 'be', 3);
+    formCluster(0.75 * screen_width - 2.25 * target_size - 1.25 * target_gap, 0.5 * target_size, 'bh', 1);
+    formCluster(screen_width - 5 * target_size - 4 * target_gap, 0.5 * target_size, 'bi', 5);
+    formCluster(screen_width - 5 * target_size - 4 * target_gap, 3.5 * target_size + 3 * target_gap, 'bl', 2);
+    formCluster(screen_width - 3 * target_size - 2 * target_gap, 3.5 * target_size + 3 * target_gap, 'bn', 1);
+    formCluster(target_size, screen_height - 2.5 * target_size - target_gap - 10, 'bo', 2);
+    formCluster(0.5 * screen_width - 2.5 * target_size - 1.5 * target_gap, 0.5 * target_size, 'br', 4);
+    formCluster(screen_width - 5 * target_size - 4 * target_gap,
+                screen_height - 4.5 * target_size - 3 * target_gap - 10, 'bu', 4);
+    formCluster(screen_width - target_size, screen_height - 1.5 * target_size - 10, 'by', 1);
 
     // Now create targets based on sorted city data
     for (let cityData of sortedCities) {
@@ -277,21 +258,27 @@ function windowResized() {
         resizeCanvas(windowWidth, windowHeight);
 
         // DO NOT CHANGE THE NEXT THREE LINES!
-        let display = new Display({ diagonal: display_size }, window.screen);
+        let display = new Display({diagonal : display_size}, window.screen);
         PPI = display.ppi; // calculates pixels per inch
         PPCM = PPI / 2.54; // calculates pixels per cm
 
-        // Make your decisions in 'cm', so that targets have the same size for all participants
-        // Below we find out out white space we can have between 2 cm targets
-        let screen_width = display.width * 2.54; // screen width
-        let screen_height = display.height * 2.54; // screen height
-        let target_size = 1.5; // sets the target size (will be converted to cm when passed to createTargets)
-        let target_gap = 0.2; // sets the gap between targets (will be converted to cm when passed to createTargets)
-        let horizontal_gap = screen_width - 14 * target_size; // empty space in cm across the x-axis (based on 10 targets per row)
-        let vertical_gap = screen_height - target_size * GRID_ROWS; // empty space in cm across the y-axis (based on 8 targets per column)
+        // Make your decisions in 'cm', so that targets have the same size for all
+        // participants Below we find out out white space we can have between 2 cm
+        // targets
+        let screen_width = display.width * 2.54;              // screen width
+        let screen_height = display.height * 2.54;            // screen height
+        let target_size = 1.5;                                // sets the target size (will be converted to cm
+                                                              // when passed to createTargets)
+        let target_gap = 0.2;                                 // sets the gap between targets (will be converted to
+                                                              // cm when passed to createTargets)
+        let horizontal_gap = screen_width - 14 * target_size; // empty space in cm across the x-axis
+                                                              // (based on 10 targets per row)
+        let vertical_gap = screen_height - target_size * GRID_ROWS; // empty space in cm across the y-axis (based
+                                                                    // on 8 targets per column)
 
-        // Creates and positions the UI targets according to the white space defined above (in cm!)
-        // 80 represent some margins around the display (e.g., for text)
+        // Creates and positions the UI targets according to the white space defined
+        // above (in cm!) 80 represent some margins around the display (e.g., for
+        // text)
         createTargets(target_size * PPCM, target_gap * PPCM, screen_width * PPCM, screen_height * PPCM);
 
         // Starts drawing targets immediately after we go fullscreen
