@@ -219,6 +219,8 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
     sortedCities.sort(
         (a, b) => { return removeAccents(a.name).localeCompare(removeAccents(b.name), "en", {sensitivity : "base"}); });
 
+    sortedCities.sort((a, b) => a.name.length - b.name.length);
+  
     function formCluster(clusterX, clusterY, clusterPrefix, clusterSizeLimit) {
         let initialX = clusterX;
         let initialY = clusterY;
