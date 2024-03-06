@@ -1,7 +1,7 @@
 // Support variables & functions (DO NOT CHANGE!)
 
 let student_ID_form, display_size_form, start_button; // Initial input variables
-let student_ID, display_size; // User input parameters
+let student_ID, display_size;                         // User input parameters
 
 // Prints the initial UI that prompts that ask for student ID and screen size
 function drawUserIDScreen() {
@@ -24,8 +24,7 @@ function drawUserIDScreen() {
     student_ID_label.position(10, student_ID_pos_y_offset);
 
     // 2. Display size
-    let display_size_pos_y_offset =
-        student_ID_pos_y_offset + student_ID_form.size().height + 20;
+    let display_size_pos_y_offset = student_ID_pos_y_offset + student_ID_form.size().height + 20;
 
     display_size_form = createInput(""); // create input field
     display_size_form.position(200, display_size_pos_y_offset);
@@ -37,10 +36,7 @@ function drawUserIDScreen() {
     // 3. Start button
     start_button = createButton("START");
     start_button.mouseReleased(startTest);
-    start_button.position(
-        width / 2 - start_button.size().width / 2,
-        height / 2 - start_button.size().height / 2
-    );
+    start_button.position(width / 2 - start_button.size().width / 2, height / 2 - start_button.size().height / 2);
 
     // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
     textFont("Arial", 24);
@@ -49,28 +45,19 @@ function drawUserIDScreen() {
     text("Grouped by two initial letters AND ordered by length", width / 2, 0.9 * height / 2);
 }
 
-
 // Verifies if the student ID is a number, and within an acceptable range
 function validID() {
-    if (
-        parseInt(student_ID_form.value()) < 200000 &&
-        parseInt(student_ID_form.value()) > 1000
-    )
+    if (parseInt(student_ID_form.value()) < 200000 && parseInt(student_ID_form.value()) > 1000)
         return true;
     else {
-        alert(
-            "Please insert a valid student number (integer between 1000 and 200000)"
-        );
+        alert("Please insert a valid student number (integer between 1000 and 200000)");
         return false;
     }
 }
 
 // Verifies if the display size is a number, and within an acceptable range (>13")
 function validSize() {
-    if (
-        parseInt(display_size_form.value()) < 50 &&
-        parseInt(display_size_form.value()) >= 13
-    )
+    if (parseInt(display_size_form.value()) < 50 && parseInt(display_size_form.value()) >= 13)
         return true;
     else {
         alert("Please insert a valid display size (between 13 and 50)");
