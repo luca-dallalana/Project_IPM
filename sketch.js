@@ -264,7 +264,8 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 
 	// Now create targets based on sorted city data
 	for (let cityData of sortedCities) {
-		let target = new Target(cityData.x, cityData.y, target_size, cityData.name, cityData.id);
+		let target = new Target(cityData.x - target_size / 2, cityData.y - target_size / 2, cityData.x, cityData.y,
+								target_size, cityData.name, cityData.id);
 		targets.push(target);
 	}
 }
