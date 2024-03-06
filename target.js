@@ -3,8 +3,8 @@ class Target {
 	constructor(x, y, textX, textY, w, l, id) {
 		this.x = x;
 		this.y = y;
-        this.TextX = textX;
-        this.textY = textY;
+		this.TextX = textX;
+		this.textY = textY;
 		this.width = w;
 		this.label = l;
 		this.id = id;
@@ -20,13 +20,13 @@ class Target {
 	// and its label
 	draw() {
 		// Draw target
-		fill(color(50, 50, 50));
+		fill(color(100, 100, 100));
 		rect(this.x, this.y, this.width, this.width);
 
 		// Draw label
-		textFont("Arial", 11);
+		textFont("Arial", 14);
 		textStyle(BOLD);
-		fill(color(255, 255, 0));
+		fill(color(0, 255, 0));
 		textAlign(CENTER);
 		text(this.label, this.TextX, this.textY);
 		textStyle(NORMAL);
@@ -34,7 +34,7 @@ class Target {
 }
 
 class ClusterBorder {
-	constructor(x, y, w, h, prefix, textX, textY) {
+	constructor(x, y, textX, textY, w, h, prefix) {
 		this.x = x;
 		this.y = y;
 		this.width = w;

@@ -245,7 +245,7 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 		let textY = initialY - target_size + target_gap;
 
 		let clusterBorder =
-			new ClusterBorder(clusterBorderX, clusterBorderY, width, height, clusterPrefix, textX, textY);
+			new ClusterBorder(clusterBorderX, clusterBorderY, textX, textY, width, height, clusterPrefix);
 		clusterBorders.push(clusterBorder);
 	}
 
