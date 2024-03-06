@@ -253,14 +253,12 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
     formCluster(0.5 * screen_width - 1.5 * target_size - 0.5 * target_gap, 1.5 * target_size + target_gap, "be", 4);
     formCluster(0.75 * screen_width - 1.25 * target_size - 0.25 * target_gap, 1.5 * target_size + target_gap, "bh", 1);
     formCluster(screen_width - 4 * target_size - 3 * target_gap, 1.5 * target_size + target_gap, "bi", 4);
-    formCluster(target_size + 2.5 * target_size + 2.5 * target_gap, screen_height - 2.5 * target_size - target_gap,
-                "bl", 1);
-    formCluster(target_size + 4 * target_size + 4 * target_gap, screen_height - 2.5 * target_size - target_gap, "bn",
-                1);
+    formCluster(target_size + 2.5 * target_size + 2.5 * target_gap, screen_height - 1.5 * target_size, "bl", 1);
+    formCluster(target_size + 4 * target_size + 4 * target_gap, screen_height - 1.5 * target_size, "bn", 1);
     formCluster(target_size, screen_height - 2.5 * target_size - target_gap, "bo", 2);
     formCluster(screen_width / 2 - 0.5 * target_gap - 1.5 * target_size,
                 screen_height - 4.5 * target_size - 3 * target_gap, "br", 4);
-    formCluster(screen_width - 6 * target_size - 5 * target_gap, screen_height - 4.5 * target_size - 3 * target_gap,
+    formCluster(screen_width - 5 * target_size - 5 * target_gap, screen_height - 4.5 * target_size - 3 * target_gap,
                 "bu", 4);
     formCluster(screen_width - target_size, screen_height - 1.5 * target_size, "by", 1);
 
