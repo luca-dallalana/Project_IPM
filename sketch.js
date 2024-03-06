@@ -68,12 +68,6 @@ function draw() {
         for (let clusterBorder of clusterBorders)
             clusterBorder.draw();
 
-        // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
-        textFont("Arial", 24);
-        fill(color(100, 100, 100));
-        textAlign(CENTER);
-        text("Grouped by two initial letters AND alphabetically ordered", width / 2, 0.9 * height / 2);
-
         // Draws the target label to be selected in the current trial. We include
         // a black rectangle behind the trial label for optimal contrast in case
         // you change the background colour of the sketch (DO NOT CHANGE THESE!)
@@ -220,7 +214,7 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
         (a, b) => { return removeAccents(a.name).localeCompare(removeAccents(b.name), "en", {sensitivity : "base"}); });
 
     sortedCities.sort((a, b) => a.name.length - b.name.length);
-  
+
     function formCluster(clusterX, clusterY, clusterPrefix, clusterSizeLimit) {
         let initialX = clusterX;
         let initialY = clusterY;
@@ -256,15 +250,15 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
     }
 
     formCluster(target_size, 1.5 * target_size + target_gap, "ba", 5);
-    formCluster(0.5 * screen_width - 2.5 * target_size - 1.5 * target_gap, 1.5 * target_size + target_gap, "be", 4);
-    formCluster(0.75 * screen_width - 2.25 * target_size - 1.25 * target_gap, 1.5 * target_size + target_gap, "bh", 1);
-    formCluster(screen_width - 5 * target_size - 4 * target_gap, 1.5 * target_size + target_gap, "bi", 4);
+    formCluster(0.5 * screen_width - 1.5 * target_size - 0.5 * target_gap, 1.5 * target_size + target_gap, "be", 4);
+    formCluster(0.75 * screen_width - 1.25 * target_size - 0.25 * target_gap, 1.5 * target_size + target_gap, "bh", 1);
+    formCluster(screen_width - 4 * target_size - 3 * target_gap, 1.5 * target_size + target_gap, "bi", 4);
     formCluster(target_size + 2.5 * target_size + 2.5 * target_gap, screen_height - 2.5 * target_size - target_gap,
                 "bl", 1);
-    formCluster(target_size + 4 * target_size + 4 * target_gap, screen_height - 2.5 * target_size - target_gap,
-                "bn", 1);
+    formCluster(target_size + 4 * target_size + 4 * target_gap, screen_height - 2.5 * target_size - target_gap, "bn",
+                1);
     formCluster(target_size, screen_height - 2.5 * target_size - target_gap, "bo", 2);
-    formCluster(screen_width / 2 - 1.5 * target_gap - 2.5 * target_size,
+    formCluster(screen_width / 2 - 0.5 * target_gap - 1.5 * target_size,
                 screen_height - 4.5 * target_size - 3 * target_gap, "br", 4);
     formCluster(screen_width - 6 * target_size - 5 * target_gap, screen_height - 4.5 * target_size - 3 * target_gap,
                 "bu", 4);
@@ -292,7 +286,7 @@ function windowResized() {
         // targets
         let screen_width = display.width * 2.54;   // screen width
         let screen_height = display.height * 2.54; // screen height
-        let target_size = 1.5; // sets the target size (will be converted to cm when passed to createTargets)
+        let target_size = 1.8; // sets the target size (will be converted to cm when passed to createTargets)
         let target_gap = 0.1;  // sets the gap between targets (will be converted to cm when passed to createTargets)
 
         // Creates and positions the UI targets according to the white space defined above (in cm!) 80 represent some
