@@ -41,7 +41,14 @@ function drawUserIDScreen() {
         width / 2 - start_button.size().width / 2,
         height / 2 - start_button.size().height / 2
     );
+
+    // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
+    textFont("Arial", 24);
+    fill(color(100, 100, 100));
+    textAlign(CENTER);
+    text("Grouped by two initial letters AND ordered by length", width / 2, 0.9 * height / 2);
 }
+
 
 // Verifies if the student ID is a number, and within an acceptable range
 function validID() {
