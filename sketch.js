@@ -68,12 +68,6 @@ function draw() {
         for (let clusterBorder of clusterBorders)
             clusterBorder.draw();
 
-        // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
-        textFont("Arial", 24);
-        fill(color(100, 100, 100));
-        textAlign(CENTER);
-        text("Grouped by two initial letters AND alphabetically ordered", width / 2, 0.9 * height / 2);
-
         // Draws the target label to be selected in the current trial. We include
         // a black rectangle behind the trial label for optimal contrast in case
         // you change the background colour of the sketch (DO NOT CHANGE THESE!)
