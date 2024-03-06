@@ -143,11 +143,12 @@ function mousePressed() {
 			// Check if the user clicked over one of the targets
 			if (targets[i].clicked(mouseX, mouseY)) {
 				// Checks if it was the correct target
-				if (targets[i].id === trials[current_trial] + 1)
+				if (targets[i].id === trials[current_trial] + 1) {
 					hits++;
-				else
+				} else {
 					misses++;
-
+				}
+                targets[i].selected = true;
 				current_trial++; // Move on to the next trial/target
 				break;
 			}
@@ -179,6 +180,10 @@ function mousePressed() {
 function continueTest() {
 	// Re-randomize the trial order
 	randomizeTrials();
+
+    // Reset selected targets
+    for (let target of targets)
+        target.selected = false;
 
 	// Resets performance variables
 	hits = 0;

@@ -8,21 +8,22 @@ class Target {
 		this.width = w;
 		this.label = l;
 		this.id = id;
+		this.selected = false;
 	}
 
 	// Checks if a mouse click took place
 	// within the target
 	clicked(mouse_x, mouse_y) {
-		return (
-            mouse_x > this.x &&
-            mouse_x < this.x + this.width &&
-            mouse_y > this.y &&
-            mouse_y < this.y + this.width
-        )
+		return (mouse_x > this.x && mouse_x < this.x + this.width && mouse_y > this.y && mouse_y < this.y + this.width)
 	}
 
 	// Draws the target (i.e., a circle) and its label
 	draw() {
+		// Draw a green border around the target if it is selected
+		if (this.selected)
+			stroke(255, 255, 0);
+		else
+			stroke(0);
 		// Draw target
 		fill(color(100, 100, 100));
 		rect(this.x, this.y, this.width, this.width);
@@ -30,6 +31,7 @@ class Target {
 		// Draw label
 		textFont("Arial", 13);
 		textStyle(BOLD);
+        stroke(0, 0, 0, 0);
 		fill(color(255, 255, 0));
 		textAlign(CENTER);
 		text(this.label, this.TextX, this.textY);
