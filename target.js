@@ -13,11 +13,15 @@ class Target {
 	// Checks if a mouse click took place
 	// within the target
 	clicked(mouse_x, mouse_y) {
-		return dist(this.x, this.y, mouse_x, mouse_y) < this.width / 2;
+		return (
+            mouse_x > this.x &&
+            mouse_x < this.x + this.width &&
+            mouse_y > this.y &&
+            mouse_y < this.y + this.width
+        )
 	}
 
-	// Draws the target (i.e., a circle)
-	// and its label
+	// Draws the target (i.e., a circle) and its label
 	draw() {
 		// Draw target
 		fill(color(100, 100, 100));
