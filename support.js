@@ -37,12 +37,22 @@ function drawUserIDScreen() {
     start_button = createButton("START");
     start_button.mouseReleased(startTest);
     start_button.position(width / 2 - start_button.size().width / 2, height / 2 - start_button.size().height / 2);
+  
+    // Display the screenshot
+    image(img, 440, 230);  // Draws the image at point (0, 0)
+
 
     // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
     textFont("Arial", 24);
-    fill(color(100, 100, 100));
+    fill(color(255, 255, 100));
     textAlign(CENTER);
-    text("Grouped by two initial letters AND ordered by length", width / 2, 0.9 * height / 2);
+    text("The cities are grouped by two initial letters\n AND ordered by length.", width / 2, 0.9 * height / 2 - 40);
+  
+  
+    textFont("Arial", 24);
+    fill(color(255, 255, 100));
+    textAlign(CENTER);
+    text("Example of a cluster:", width / 2 - 50, 0.9 * height / 2 - 40 + 200);
 }
 
 // Verifies if the student ID is a number, and within an acceptable range
@@ -86,12 +96,14 @@ function startTest() {
 }
 
 // Randomize the order in the targets to be selected
-function randomizeTrials() {
-    trials = []; // Empties the array
+// Randomize the order in the targets to be selected
+function randomizeTrials()
+{
+  trials = [];      // Empties the array
+    
+  // Creates an array with random items from the "legendas" CSV
+  for (var i = 0; i < NUM_OF_TRIALS; i++) trials.push(floor(random(legendas.getRowCount())));
 
-    // Creates an array with random items from the "legendas" CSV
-    for (var i = 0; i < NUM_OF_TRIALS; i++)
-        trials.push(floor(random(legendas.getRowCount())));
-
-    print("trial order: " + trials); // prints trial order - for debug purposes
+  print("trial order: " + trials);   // prints trial order - for debug purposes
 }
+
