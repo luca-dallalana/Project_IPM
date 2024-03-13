@@ -25,13 +25,13 @@ class Target {
 		else
 			stroke(0);
 		// Draw target
-		fill(color(100, 100, 100));
+		fill(color(47, 47, 79));
 		rect(this.x, this.y, this.width, this.width);
 
 		// Draw label
 		textFont("Arial", 13);
 		textStyle(BOLD);
-        stroke(0, 0, 0, 0);
+		stroke(0, 0, 0, 0);
 		fill(color(255, 255, 0));
 		textAlign(CENTER);
 		text(this.label, this.TextX, this.textY);
@@ -57,9 +57,10 @@ class ClusterBorder {
 		noFill();		 // Make the rectangle transparent
 		rect(this.x, this.y, this.width, this.height);
 
-		// Draw the cluster prefix in the lower right corner of the rectangle
-		fill(255);				   // Set fill color to black for the text
-		textFont("Arial", 24);	   // Set the font and size of the text
+		// Draw the cluster prefix on top of the rectangle
+		fill(255);			   // Set fill color to black for the text
+		textFont("Arial", 24); // Set the font and size of the text
+		fill(color(47, 79, 79))
 		textAlign(CENTER, CENTER); // Center the text
 		noStroke();				   // Remove stroke for the text
 		text(this.prefix, this.textX, this.textY);

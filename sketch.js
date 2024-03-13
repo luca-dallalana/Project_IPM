@@ -53,7 +53,7 @@ function setup() {
 function draw() {
 	if (draw_targets && attempt < 2) {
 		// The user is interacting with the 6x3 target grid
-		background(color(0, 0, 0)); // sets background to light green (garbage)
+		background(color(169, 169, 169)); // sets background to light green (garbage)
 
 		// Print trial count at the top left-corner of the canvas
 		textFont("Arial", 16);
@@ -62,11 +62,9 @@ function draw() {
 		text("Trial " + (current_trial + 1) + " of " + trials.length, 50, 20);
 
 		// Draw all targets
-		for (var i = 0; i < legendas.getRowCount(); i++)
-			targets[i].draw();
+		for (var i = 0; i < legendas.getRowCount(); i++) targets[i].draw();
 		// Draw all cluster borders
-		for (let clusterBorder of clusterBorders)
-			clusterBorder.draw();
+		for (let clusterBorder of clusterBorders) clusterBorder.draw();
 
 		// Draws the target label to be selected in the current trial. We include
 		// a black rectangle behind the trial label for optimal contrast in case
@@ -148,7 +146,7 @@ function mousePressed() {
 				} else {
 					misses++;
 				}
-                targets[i].selected = true;
+				targets[i].selected = true;
 				current_trial++; // Move on to the next trial/target
 				break;
 			}
@@ -181,9 +179,8 @@ function continueTest() {
 	// Re-randomize the trial order
 	randomizeTrials();
 
-    // Reset selected targets
-    for (let target of targets)
-        target.selected = false;
+	// Reset selected targets
+	for (let target of targets) target.selected = false;
 
 	// Resets performance variables
 	hits = 0;
@@ -196,9 +193,7 @@ function continueTest() {
 	draw_targets = true;
 }
 
-function removeAccents(str) {
-	return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+function removeAccents(str) { return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
 
 function createTargets(target_size, target_gap, screen_width, screen_height) {
 	// Create an array to hold sorted city data
@@ -220,12 +215,21 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 
 	sortedCities.sort((a, b) => a.name.length - b.name.length);
 
-	function formCluster(clusterX, clusterY, clusterPrefix, clusterSizeLimit) {
+	function formCluster(clusterX, clusterY, clusterPrefix, clusterSizeLimit, length_limit, lower) {
 		let initialX = clusterX;
 		let initialY = clusterY;
 		let clusterSize = 0;
 		let clusterCities =
 			sortedCities.filter((cityData) => removeAccents(cityData.name.toLowerCase()).startsWith(clusterPrefix));
+
+		if (length_limit != undefined) {
+			if (lower) {
+				clusterCities = clusterCities.filter((cityData) => cityData.name.length <= length_limit);
+			} else {
+				clusterCities = clusterCities.filter((cityData) => cityData.name.length > length_limit);
+			}
+		}
+
 		for (let cityData of clusterCities) {
 			if (clusterSize < clusterSizeLimit) {
 				cityData.x = clusterX;
@@ -249,23 +253,30 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 		let textX = initialX - 0.5 * target_size - target_gap + 0.5 * width;
 		let textY = initialY - target_size + target_gap;
 
+		if (length_limit != undefined) { clusterPrefix += ((lower) ? " <= " : " > ") + String(length_limit); }
 		let clusterBorder =
 			new ClusterBorder(clusterBorderX, clusterBorderY, textX, textY, width, height, clusterPrefix);
 		clusterBorders.push(clusterBorder);
 	}
 
-	formCluster(target_size, 1.5 * target_size + target_gap, "ba", 5);
-	formCluster(0.5 * screen_width - 1.5 * target_size - 0.5 * target_gap, 1.5 * target_size + target_gap, "be", 4);
-	formCluster(0.75 * screen_width - 1.25 * target_size - 0.25 * target_gap, 1.5 * target_size + target_gap, "bh", 1);
-	formCluster(screen_width - 4 * target_size - 3 * target_gap, 1.5 * target_size + target_gap, "bi", 4);
-	formCluster(target_size, screen_height - 1.5 * target_size, "bl", 1);
-	formCluster(2.5 * target_size + 1.5 * target_gap, screen_height - 1.5 * target_size, "bn", 1);
-	formCluster(4 * target_size + 3 * target_gap, screen_height - 2.5 * target_size - target_gap, "bo", 2);
+	formCluster(target_size, 1.5 * target_size + target_gap, "ba", 6, 6, true);
+	formCluster(target_size, 4.5 * target_size + 4 * target_gap, "ba", 6, 6, false)
+
+	formCluster(0.5 * screen_width - 1.5 * target_size - 0.5 * target_gap, 1.5 * target_size + target_gap, "be", 4,
+				undefined);
+	formCluster(0.75 * screen_width - 1.25 * target_size - 0.25 * target_gap, 1.5 * target_size + target_gap, "bh", 1,
+				undefined);
+	formCluster(screen_width - 4 * target_size - 3 * target_gap, 1.5 * target_size + target_gap, "bi", 4, undefined,
+				undefined);
+	formCluster(target_size, screen_height - 1.5 * target_size, "bl", 1, undefined, undefined);
+	formCluster(2.5 * target_size + 1.5 * target_gap, screen_height - 1.5 * target_size, "bn", 1, undefined, undefined);
+	formCluster(4 * target_size + 3 * target_gap, screen_height - 2.5 * target_size - target_gap, "bo", 2, undefined,
+				undefined);
 	formCluster(screen_width / 2 - 0.5 * target_gap - 1.5 * target_size,
-				screen_height - 4.5 * target_size - 3 * target_gap, "br", 4);
+				screen_height - 4.5 * target_size - 3 * target_gap, "br", 4, undefined, undefined);
 	formCluster(screen_width - 5 * target_size - 5 * target_gap, screen_height - 4.5 * target_size - 3 * target_gap,
-				"bu", 4);
-	formCluster(screen_width - target_size, screen_height - 1.5 * target_size, "by", 1);
+				"bu", 4, undefined, undefined);
+	formCluster(screen_width - target_size, screen_height - 1.5 * target_size, "by", 1, undefined, undefined);
 
 	// Now create targets based on sorted city data
 	for (let cityData of sortedCities) {
@@ -293,8 +304,8 @@ function windowResized() {
 		let target_size = 1.8; // sets the target size (will be converted to cm when passed to createTargets)
 		let target_gap = 0.1;  // sets the gap between targets (will be converted to cm when passed to createTargets)
 
-		// Creates and positions the UI targets according to the white space defined above (in cm!) 80 represent some
-		// margins around the display (e.g., for text)
+		// Creates and positions the UI targets according to the white space defined above (in cm!) 80 represent
+		// some margins around the display (e.g., for text)
 		createTargets(target_size * PPCM, target_gap * PPCM, screen_width * PPCM, screen_height * PPCM);
 
 		// Starts drawing targets immediately after we go fullscreen
