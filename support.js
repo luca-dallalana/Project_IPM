@@ -46,7 +46,7 @@ function drawUserIDScreen() {
     textFont("Arial", 24);
     fill(color(255, 255, 100));
     textAlign(CENTER);
-    text("The cities are grouped by two initial letters\n AND ordered by length.", width / 2, 0.9 * height / 2 - 40);
+    text("The cities are grouped by two initial letters\n AND ordered by length. The 'Ba' cities are divided into 2 clusters\n based on their length.", width / 2, 0.9 * height / 2 - 55);
   
   
     textFont("Arial", 24);
