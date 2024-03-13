@@ -37,6 +37,7 @@ let clusterBorders = [];
 function preload() {
 	// Load the CSV file
 	legendas = loadTable("legendas.csv", "csv", "header");
+    img = loadImage("cluster.png");
 }
 
 // Runs once at the start
@@ -253,7 +254,7 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 		let textX = initialX - 0.5 * target_size - target_gap + 0.5 * width;
 		let textY = initialY - target_size + target_gap;
 
-		if (length_limit != undefined) { clusterPrefix += ((lower) ? " <= " : " > ") + String(length_limit); }
+		if (length_limit != undefined) { clusterPrefix += ((lower) ? " <= " + (String(length_limit)): " >= " + (String(length_limit+1))) }
 		let clusterBorder =
 			new ClusterBorder(clusterBorderX, clusterBorderY, textX, textY, width, height, clusterPrefix);
 		clusterBorders.push(clusterBorder);
@@ -301,7 +302,7 @@ function windowResized() {
 		// targets
 		let screen_width = display.width * 2.54;   // screen width
 		let screen_height = display.height * 2.54; // screen height
-		let target_size = 1.8; // sets the target size (will be converted to cm when passed to createTargets)
+		let target_size = 1.6; // sets the target size (will be converted to cm when passed to createTargets)
 		let target_gap = 0.1;  // sets the gap between targets (will be converted to cm when passed to createTargets)
 
 		// Creates and positions the UI targets according to the white space defined above (in cm!) 80 represent
