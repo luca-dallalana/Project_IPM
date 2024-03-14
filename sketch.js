@@ -253,10 +253,16 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 		let height = clusterY - initialY + target_size + 2 * target_gap;
 		let textX = initialX - 0.5 * target_size - target_gap + 0.5 * width;
 		let textY = initialY - target_size + target_gap;
+        // Modify the cluster prefix to start with "B" instead of "b"
+        clusterPrefix = clusterPrefix.charAt(0).toUpperCase() + clusterPrefix.slice(1);
 
-		if (length_limit != undefined) { clusterPrefix += ((lower) ? " <= " + (String(length_limit)): " >= " + (String(length_limit+1))) }
-		let clusterBorder =
-			new ClusterBorder(clusterBorderX, clusterBorderY, textX, textY, width, height, clusterPrefix);
+        if (length_limit != undefined) { 
+            clusterPrefix += ((lower) ? " <= " + (String(length_limit)): " >= " + (String(length_limit+1)));
+        }
+        let clusterBorder =
+            new ClusterBorder(clusterBorderX, clusterBorderY, textX, textY, width, height, clusterPrefix);
+        clusterBorders.push(clusterBorder);
+
 		clusterBorders.push(clusterBorder);
 	}
 
