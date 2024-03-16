@@ -32,9 +32,32 @@ class Target {
 		textFont("Arial", 13);
 		textStyle(BOLD);
 		stroke(0, 0, 0, 0);
+		textAlign(LEFT);
+
+		// fill(color(255, 255, 0));
+		// text(this.label[1], this.TextX, this.textY);
+
+		let wordLength = textWidth(this.label);
+		let textGap = (this.width - wordLength) / 2;
+		let currentLabelX = this.x + textGap;
+
+		// Draw the "B" letter in white,
+		fill(color(255, 255, 255));
+		text(this.label[0], currentLabelX, this.textY);
+		currentLabelX += textWidth(this.label[0]);
+
+		// Draw the second and third letters in yellow
 		fill(color(255, 255, 0));
-		textAlign(CENTER);
-		text(this.label, this.TextX, this.textY);
+		text(this.label[1], currentLabelX, this.textY);
+		currentLabelX += textWidth(this.label[1]);
+		text(this.label[2], currentLabelX, this.textY);
+		currentLabelX += textWidth(this.label[2]);
+
+		// Draw the remaining letters in white
+		fill(color(255, 255, 255));
+		let remainingText = this.label.substring(3);
+		text(remainingText, currentLabelX, this.textY);
+
 		textStyle(NORMAL);
 	}
 }
