@@ -203,8 +203,8 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 	// Populate the sortedCities array with city data from legendas.csv
 	for (let i = 0; i < legendas.getRowCount(); i++) {
 		let cityData = {
-			id : legendas.getNum(i, 0),		 // Assuming IDs are in the first column
-			name : legendas.getString(i, 1), // Assuming city names are in the second column
+			id : legendas.getNum(i, 0),		 
+			name : legendas.getString(i, 1), 
 			x : 0,							 // Placeholder for x-coordinate
 			y : 0,							 // Placeholder for y-coordinate
 		};
@@ -286,7 +286,7 @@ function createTargets(target_size, target_gap, screen_width, screen_height) {
 				"bu", 4, undefined, undefined);
 	formCluster(screen_width - target_size, screen_height - 1.5 * target_size, "by", 1, undefined, undefined);
 
-	// Now create targets based on sorted city data
+	// Targets based on sorted city data
 	for (let cityData of sortedCities) {
 		let target = new Target(cityData.x - target_size / 2, cityData.y - target_size / 2, cityData.x, cityData.y,
 								target_size, cityData.name, cityData.id);

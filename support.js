@@ -40,12 +40,12 @@ function drawUserIDScreen() {
   
     // Display the screenshot
     
-    image(img, 470, 240);  // Draws the image at point (0, 0)
+    image(img, 470, 240);  // Draws the image at point
     // Save the current drawing state
     push();
 
-    // Scale down img2 and draw it at (400, 400)
-    let scaleFactor = 0.4; // Set the scale factor (0.5 means half size)
+    // Scale down img2 and draw it 
+    let scaleFactor = 0.4; // Set the scale factor 
     scale(scaleFactor);
     image(img2, 400 / scaleFactor - 850 , 400 / scaleFactor - 400);
 
