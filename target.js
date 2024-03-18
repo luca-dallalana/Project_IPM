@@ -47,14 +47,14 @@ class Target {
 		currentLabelX += textWidth(this.label[0]);
 
 		// Draw the second and third letters in yellow
-		fill(color(255, 255, 0));
+		fill(color(255, 255, 255));
 		text(this.label[1], currentLabelX, this.textY);
 		currentLabelX += textWidth(this.label[1]);
 		text(this.label[2], currentLabelX, this.textY);
 		currentLabelX += textWidth(this.label[2]);
 
 		// Draw the remaining letters in white
-		fill(color(255, 255, 255));
+		fill(color(255, 255, 0));
 		let remainingText = this.label.substring(3);
 		text(remainingText, currentLabelX, this.textY);
 
