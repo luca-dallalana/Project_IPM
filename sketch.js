@@ -38,6 +38,7 @@ function preload() {
 	// Load the CSV file
 	legendas = loadTable("legendas.csv", "csv", "header");
     img = loadImage("cluster.png");
+    img2 = loadImage("cluster2.png");
 }
 
 // Runs once at the start
@@ -54,7 +55,7 @@ function setup() {
 function draw() {
 	if (draw_targets && attempt < 2) {
 		// The user is interacting with the 6x3 target grid
-		background(color(169, 169, 169)); // sets background to light green (garbage)
+		background(color(169, 169, 169)); // sets background color
 
 		// Print trial count at the top left-corner of the canvas
 		textFont("Arial", 16);

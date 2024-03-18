@@ -39,20 +39,27 @@ function drawUserIDScreen() {
     start_button.position(width / 2 - start_button.size().width / 2, height / 2 - start_button.size().height / 2);
   
     // Display the screenshot
-    image(img, 440, 230);  // Draws the image at point (0, 0)
+    
+    image(img, 470, 240);  // Draws the image at point (0, 0)
+    // Save the current drawing state
+    push();
+
+    // Scale down img2 and draw it at (400, 400)
+    let scaleFactor = 0.4; // Set the scale factor (0.5 means half size)
+    scale(scaleFactor);
+    image(img2, 400 / scaleFactor - 850 , 400 / scaleFactor - 400);
+
+    // Restore the previous drawing state
+    pop();
+    
 
 
     // Draw "Grouped by two initial letters AND alphabetically ordered" in the center of the screen.
-    textFont("Arial", 24);
-    fill(color(255, 255, 100));
+    textFont("Arial", 23);
+    fill(color(0, 255, 0));
     textAlign(CENTER);
-    text("The cities are grouped by two initial letters\n AND ordered by length. The 'Ba' cities are divided into 2 clusters\n based on their length.", width / 2, 0.9 * height / 2 - 55);
+    text("The cities are grouped by two initial letters AND ordered by length.\n Only the cities starting with 'Ba' are divided into 2 clusters\n based on their length. Examples:", width / 2, 0.9 * height / 2 - 55);
   
-  
-    textFont("Arial", 24);
-    fill(color(255, 255, 100));
-    textAlign(CENTER);
-    text("Example of a cluster:", width / 2 - 50, 0.9 * height / 2 - 40 + 200);
 }
 
 // Verifies if the student ID is a number, and within an acceptable range
