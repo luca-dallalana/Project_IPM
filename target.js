@@ -21,7 +21,7 @@ class Target {
 	draw() {
 		// Draw a green border around the target if it is selected
 		if (this.selected)
-			stroke(255, 255, 0);
+			stroke(0, 255, 0);
 		else
 			stroke(0);
 		// Draw target
@@ -41,20 +41,17 @@ class Target {
 		let textGap = (this.width - wordLength) / 2;
 		let currentLabelX = this.x + textGap;
 
-		// Draw the "B" letter in white,
-		fill(color(255, 255, 255));
+		// Draw the first 3 letters in a different color,
+		fill(color(0, 255, 0));
 		text(this.label[0], currentLabelX, this.textY);
 		currentLabelX += textWidth(this.label[0]);
-
-		// Draw the second and third letters in yellow
-		fill(color(255, 255, 255));
 		text(this.label[1], currentLabelX, this.textY);
 		currentLabelX += textWidth(this.label[1]);
 		text(this.label[2], currentLabelX, this.textY);
 		currentLabelX += textWidth(this.label[2]);
 
 		// Draw the remaining letters in white
-		fill(color(255, 255, 0));
+		fill(color(255, 255, 255));
 		let remainingText = this.label.substring(3);
 		text(remainingText, currentLabelX, this.textY);
 
