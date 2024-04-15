@@ -1,8 +1,3 @@
-// Bake-off #2 -- Seleção em Interfaces Densas
-// IPM 2023-24, Período 3
-// Entrega: até às 23h59, dois dias úteis antes do sexto lab (via Fenix)
-// Bake-off: durante os laboratórios da semana de 18 de Março
-
 // p5.js reference: https://p5js.org/reference/
 
 // Database (CHANGE THESE!)
