@@ -29,7 +29,8 @@ Features and the HCI laws behind them:
     Once clicked, a bright green outline is formed outside the clicked rectangle.
     The color palette offers great constrast. The background is grey, the rectangles blue, the words white and green.
 
-    ![Screenshot from 2024-04-14 22-31-26](https://github.com/luca-dallalana/Project_IPM/assets/110358692/4f32b450-1d37-4a2a-b9e8-1107f71c6a11)
+
+![Screenshot from 2024-04-14 22-31-26](https://github.com/luca-dallalana/Project_IPM/assets/110358692/4f32b450-1d37-4a2a-b9e8-1107f71c6a11)
 
     source: https://editor.p5js.org/guilhermedcampos/full/hUj5nmODo
 
@@ -75,6 +76,13 @@ To test the project follow these steps:
 2. To create a solution of your own, you can duplicate the original source code with the following p5 editor link: https://editor.p5js.org/IPM23-24/sketches/lBtEAzXfd.
 
 ## Contents
+
+  -target.js - contains de target and border class that will be drawn.
+  -support.js - contains the screen that explains the project and the support variables/functions.
+  -sketch.js - contains the functions used in the iterations.
+  -ppi.js - calculates pixels per inch for each user's screen width
+  -legendas.csv - contains the table of cities, along with additional information about them.
+  
 
 
     
