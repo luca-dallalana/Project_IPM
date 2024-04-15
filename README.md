@@ -1,5 +1,12 @@
 # HCI CityClicker
 
+## What's used
+
+-p5.js library 
+-html
+-css
+-javascript
+
 ## Overview Of The Problem
 
 This is a HCI (Human-Computer Interaction) project designed to test user speed and accuracy in clicking on specific targets within a grid of city names. The goal of the project is to assess how quickly and accurately users can identify and select city names that start with a certain letter. In our case, all of database's names beginning start with the letter "B".
@@ -24,7 +31,7 @@ Features and the HCI laws behind them:
 
     ![Screenshot from 2024-04-14 22-31-26](https://github.com/luca-dallalana/Project_IPM/assets/110358692/4f32b450-1d37-4a2a-b9e8-1107f71c6a11)
 
-    source:
+    source: https://editor.p5js.org/guilhermedcampos/full/hUj5nmODo
 
 Fitts's Law:
     Clustered Organization: Eight clusters and 3 single rectangles, ordered alphabetically, reduce cognitive load by grouping cities logically.
@@ -42,6 +49,34 @@ Stu Card's Feedback Law:
     Feedback with Green Outline: Bright green outline feedback upon selection provides clear confirmation, offering immediate visual feedback for user actions.
 
 Miller's Law:
-    Number of clusters: We can memorize 7+2 elements at once. By using 8 clusters users can remember the position of each cluster, or have a general knowledge.
+    Number of clusters: We can memorize 7±2 elements at once. By using 8 clusters users can remember the position of each cluster, or have a general knowledge.
+
+## How to Use
+To test the project follow these steps:
+
+1.Clone the repository to your local machine.
+
+  ´´´bash
+  git clone https://github.com/luca-dallalana/Project_IPM
+  ´´´
+
+2.  Open the index.html file in a web browser or run the p5 web link that contains the project (https://editor.p5js.org/guilhermedcampos/full/hUj5nmODo).
+
+3. Follow the on-screen instructions to start the interaction. Login with an id between 1000 and 200000, and put the your screen's width.
+
+4. Click on the rectangles that contain the given cities for each iteration as quickly and accurate as possible.
+
+5. After completing the interaction, view the performance metrics displayed on the screen.
+
+## How to edit and create a personal solution
+
+1. Getting started with P5: https://p5js.org/
+
+2. To create a solution of your own, you can duplicate the original source code with the following p5 editor link: https://editor.p5js.org/IPM23-24/sketches/lBtEAzXfd.
+
+## Contents
+
+
+    
 
   
