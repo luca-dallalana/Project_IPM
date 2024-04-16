@@ -2,10 +2,10 @@
 
 ## What's used
 
--p5.js library 
--html
--css
--javascript
+    p5.js library 
+    html
+    css
+    javascript
 
 ## Overview Of The Problem
 
@@ -53,13 +53,11 @@ Miller's Law:
     Number of clusters: We can memorize 7±2 elements at once. By using 8 clusters users can remember the position of each cluster, or have a general knowledge.
 
 ## How to Use
-To test the project follow these steps:
+To test the project  follow these steps:
 
 1.Clone the repository to your local machine.
 
-  ´´´bash
-  git clone https://github.com/luca-dallalana/Project_IPM
-  ´´´
+    git clone https://github.com/luca-dallalana/Project_IPM
 
 2.  Open the index.html file in a web browser or run the p5 web link that contains the project (https://editor.p5js.org/guilhermedcampos/full/hUj5nmODo).
 
@@ -77,11 +75,11 @@ To test the project follow these steps:
 
 ## Contents
 
-  -target.js - contains de target and border class that will be drawn.
-  -support.js - contains the screen that explains the project and the support variables/functions.
-  -sketch.js - contains the functions used in the iterations.
-  -ppi.js - calculates pixels per inch for each user's screen width
-  -legendas.csv - contains the table of cities, along with additional information about them.
+    -target.js - contains de target and border class that will be drawn.
+    -support.js - contains the screen that explains the project and the support variables/functions.
+    -sketch.js - contains the functions used in the iterations.
+    -ppi.js - calculates pixels per inch for each user's screen width
+    -legendas.csv - contains the table of cities, along with additional information about them.
   
 
 
